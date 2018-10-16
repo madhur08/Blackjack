@@ -7,8 +7,8 @@ int main(int argc, char **argv)
 {
     if (argc < 2)
     {
-        cout << "Missing arguments\n";
-        cout << "Correct format : ./code <p>";
+        cerr << "Missing arguments\n";
+        cerr << "Correct format : ./code <p>";
     }
     else
     {
