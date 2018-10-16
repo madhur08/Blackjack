@@ -5,7 +5,7 @@ IDIR = include
 INCLUDES = -I./$(IDIR)
 _OBJECTS = main.o State.o States.o
 OBJECTS = $(patsubst %, $(ODIR)/%,$(_OBJECTS))
-CFLAGS = -Wall -Wextra -O0 -std=c++11 -pedantic
+CFLAGS = -Wall -Wextra -Ofast -std=c++11 -pedantic
 
 all: $(OBJECTS)
 	@mkdir -p bin

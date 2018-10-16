@@ -18,7 +18,7 @@ private:
 
 public:
   State() = delete;
-  State(int, bool, bool, bool pair = false, bool blackjack = false, double utility = 0);
+  State(int, bool, bool, bool pair = false, bool blackjack = false, double utility = -100);
   char getAction();
   void setAction(char);
   int getHandValue();

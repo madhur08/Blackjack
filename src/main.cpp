@@ -43,6 +43,7 @@ int main(int argc, char **argv)
                 cout << output[i][j] << " ";
             cout << output[i][0] << endl;
         }
+        cout<<"AA\t";
         for (int j = 1; j < 10; ++j)
             cout << output[32][j] << " ";
         cout << output[32][0];

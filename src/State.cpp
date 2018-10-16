@@ -7,8 +7,8 @@ State::State(int handValue, bool ACard, bool twoCards, bool pair, bool blackjack
     this->twoCards = twoCards;
     this->pair = pair;
     this->blackjack = blackjack;
-    utilityD = utilityH = utilityP = utilityS = 0;
-    this->utility = utility;
+    utilityD = utilityH = utilityP = utilityS = utility;
+    this->utility = utility == -100?0:utility;
 }
 char State::getAction()
 {
