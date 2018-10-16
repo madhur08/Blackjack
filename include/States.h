@@ -4,15 +4,16 @@
 
 class States
 {
-  private:
-    vector<State> states;
-    int dealerCard;
-    double probability;
-    States(double, int);
-    void assignNextStates();
-    void assignNextStates(char, State&);
-    void valueIteration();
-    double calculateUtility(State&,int,bool doubleValue, double prob, bool isA);
+private:
+  vector<State> states;
+  int dealerCard;
+  double probability;
+  States(double, int);
+  State &getState(int);
+  void assignNextStates();
+  void assignNextStates(char, State &);
+  void valueIteration();
+  double calculateUtility(State &, State &, int, bool, bool doubleValue, double prob, char action, int cardNumber);
 };
 
 #endif
