@@ -10,7 +10,7 @@ int main(int argc, char **argv)
     }
     else
     {
-        float p = atof(argv[1]);
+       States atof(argv[1]);
         
     }
 }
