@@ -30,13 +30,15 @@ State &States::getState(size_t i)
 {
     return states[i];
 }
-void States::calculateUtility(State &state, State &compareState, int dealerValue, bool isA, bool doubleValue, double prob, char action, int cardNumber)
+void States::calculateUtility(State &state, State &compareState, int dealer, bool isA, bool doubleValue, double prob, char action, int cardNumber)
 {
     for (int i = 1; i <= 10; ++i)
     {
         double p = i == 10 ? probability : (1 - probability) / 9;
-        dealerValue += i;
-        if (dealerValue >= 17 || ((isA | (i == 1)) && dealerValue + 10 >= 17 && dealerValue + 10 <= 21))
+        int dealerValue = dealer + i;
+        if ((isA | (i == 1)) && dealerValue <= 11)
+            dealerValue += 10;
+        if (dealerValue >= 17)
         {
             if (dealerValue > 21)
             {
@@ -53,20 +55,15 @@ void States::calculateUtility(State &state, State &compareState, int dealerValue
                     state.addNextState(&states[61 + doubleValue * 3], action, prob * p);
                 else
                 {
-                    if (dealerValue >= 17 && dealerValue > compareState.getHandValue())
+                    if (dealerValue > compareState.getHandValue())
                         state.addNextState(&states[59 + doubleValue * 3], action, prob * p);
-                    else if (dealerValue >= 17 && dealerValue < compareState.getHandValue())
-                        state.addNextState(&states[60 + doubleValue * 3], action, prob * p);
-                    else if (dealerValue < 17 && dealerValue + 10 > compareState.getHandValue())
-                        state.addNextState(&states[59 + doubleValue * 3], action, prob * p);
-                    else if (dealerValue < 17 && dealerValue + 10 < compareState.getHandValue())
+                    else if (dealerValue < compareState.getHandValue())
                         state.addNextState(&states[60 + doubleValue * 3], action, prob * p);
                 }
             }
         }
         else
-            calculateUtility(state, compareState, dealerValue, isA | (i == 1), doubleValue, p * prob, action, cardNumber + 1);
-        dealerValue -= i;
+            calculateUtility(state, compareState, dealer + i, isA | (i == 1), doubleValue, p * prob, action, cardNumber + 1);
     }
 }
 void States::assignNextStates(char action, State &state)
