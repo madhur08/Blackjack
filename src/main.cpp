@@ -19,7 +19,7 @@ int main(int argc, char **argv)
             States states(atof(argv[1]), i);
             states.assignNextStates();
             states.valueIteration();
-            for (size_t v = 0; v < output.size(); ++v)
+            for (size_t v = 0; v != output.size(); ++v)
                 output[v].push_back(states.getState(v).getAction());
         }
         for (int i = 0; i < 15; ++i)

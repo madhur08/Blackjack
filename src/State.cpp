@@ -1,6 +1,5 @@
 #include "State.h"
 #include <iostream>
-
 State::State(int handValue, bool ACard, bool twoCards, bool pair, bool blackjack, double utility)
 {
     this->handValue = handValue;

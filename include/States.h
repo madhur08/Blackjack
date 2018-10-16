@@ -1,6 +1,7 @@
 #ifndef STATES_H
 #define STATES_H
 #include "State.h"
+#include <cstddef>
 
 class States
 {
@@ -10,7 +11,7 @@ private:
   double probability;
 public:
   States(double, int);
-  State &getState(int);
+  State &getState(size_t);
   void assignNextStates();
   void assignNextStates(char, State &);
   void valueIteration();

@@ -25,7 +25,7 @@ States::States(double p, int dealerCard)
     states.push_back(State(21, false, false, false, false, 2));
     states.push_back(State(22, false, false, false, false, 3));
 }
-State &States::getState(int i)
+State &States::getState(size_t i)
 {
     return states[i];
 }
@@ -158,7 +158,7 @@ void States::valueIteration()
             double utilityH = 0;
             vector<State *> &nextStateH = state.getNextState('H');
             vector<double> &stateProbH = state.getProbability('H');
-            for (size_t i = 0; i < nextStateH.size(); ++i)
+            for (size_t i = 0; i != nextStateH.size(); ++i)
                 utilityH += stateProbH[i] * nextStateH[i]->getUtility();
             state.setUtility(utilityH, 'H');
 
@@ -166,7 +166,7 @@ void States::valueIteration()
             double utilityS = 0;
             vector<State *> &nextStateS = state.getNextState('S');
             vector<double> &stateProbS = state.getProbability('S');
-            for (size_t i = 0; i < nextStateS.size(); ++i)
+            for (size_t i = 0; i != nextStateS.size(); ++i)
                 utilityS += stateProbS[i] * nextStateS[i]->getUtility();
             state.setUtility(utilityS, 'S');
 
@@ -174,7 +174,7 @@ void States::valueIteration()
             double utilityD = 0;
             vector<State *> &nextStateD = state.getNextState('D');
             vector<double> &stateProbD = state.getProbability('D');
-            for (size_t i = 0; i < nextStateD.size(); ++i)
+            for (size_t i = 0; i != nextStateD.size(); ++i)
                 utilityD += stateProbD[i] * nextStateD[i]->getUtility();
             state.setUtility(utilityD, 'D');
 
@@ -182,7 +182,7 @@ void States::valueIteration()
             double utilityP = 0;
             vector<State *> &nextStateP = state.getNextState('P');
             vector<double> &stateProbP = state.getProbability('P');
-            for (size_t i = 0; i < nextStateP.size(); ++i)
+            for (size_t i = 0; i != nextStateP.size(); ++i)
                 utilityP += stateProbP[i] * nextStateP[i]->getUtility();
             state.setUtility(utilityP, 'P');
         }
