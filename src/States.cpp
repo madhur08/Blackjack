@@ -29,7 +29,7 @@ State &States::getState(int i)
 {
     return states[i];
 }
-double States::calculateUtility(State &state, State &compareState, int dealerValue, bool isA, bool doubleValue = false, double prob = 1, char action = 'S', int cardNumber = 2)
+void States::calculateUtility(State &state, State &compareState, int dealerValue, bool isA, bool doubleValue, double prob, char action, int cardNumber)
 {
     for (int i = 1; i <= 10; ++i)
     {

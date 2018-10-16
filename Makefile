@@ -3,7 +3,7 @@ ODIR = build
 SDIR = src
 IDIR = include
 INCLUDES = -I./$(IDIR)
-_OBJECTS = main.o State.o
+_OBJECTS = main.o State.o States.o
 OBJECTS = $(patsubst %, $(ODIR)/%,$(_OBJECTS))
 CFLAGS = -Wall -Wextra -O0 -std=c++11 -pedantic
 

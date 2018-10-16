@@ -18,12 +18,12 @@ private:
 
 public:
   State() = delete;
-  State(int, bool, bool, bool pair, bool blackjack, double utility);
+  State(int, bool, bool, bool pair = false, bool blackjack = false, double utility = 0);
   char getAction();
   void setAction(char);
   int getHandValue();
   void setHandValue(int);
-  void setUtility(double, char action);
+  void setUtility(double, char action = 'O');
   bool hasA();
   bool isBlackjack();
   bool isPair();
@@ -31,6 +31,6 @@ public:
   void addNextState(State *, char, double);
   vector<State *> &getNextState(char);
   vector<double> &getProbability(char);
-  double getUtility(char action);
+  double getUtility(char action = 'O');
 };
 #endif

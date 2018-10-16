@@ -1,11 +1,11 @@
 #include "State.h"
 #include <iostream>
 
-State::State(int handValue, bool ACard, bool twoCards, bool pair = false, bool blackjack = false, double utility = 0)
+State::State(int handValue, bool ACard, bool twoCards, bool pair, bool blackjack, double utility)
 {
     this->handValue = handValue;
     this->ACard = ACard;
-    this->onlyTwoCards = onlyTwoCards;
+    this->twoCards = twoCards;
     this->pair = pair;
     this->blackjack = blackjack;
     utilityD = utilityH = utilityP = utilityS = 0;
@@ -27,7 +27,7 @@ void State::setHandValue(int value)
 {
     handValue = value;
 }
-void State::setUtility(double utility, char action = 'O')
+void State::setUtility(double utility, char action)
 {
     switch (action)
     {
@@ -122,7 +122,7 @@ vector<double> &State::getProbability(char action)
         return DEFAULT;
     }
 }
-double State::getUtility(char action = 'O')
+double State::getUtility(char action)
 {
     switch (action)
     {

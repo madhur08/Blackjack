@@ -1,4 +1,4 @@
-!/bin/bash
+#!/bin/bash
 
 if [-e "./bin/code"]; then
 	./code $1 > Policy.txt
