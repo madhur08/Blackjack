@@ -8,7 +8,7 @@ State::State(int handValue, bool ACard, bool twoCards, bool pair, bool blackjack
     this->pair = pair;
     this->blackjack = blackjack;
     utilityD = utilityH = utilityP = utilityS = utility;
-    this->utility = utility == -100?0:utility;
+    this->utility = utility == -100 ? 0 : utility;
 }
 char State::getAction()
 {
@@ -62,6 +62,23 @@ bool State::isPair()
 bool State::onlyTwoCards()
 {
     return twoCards;
+}
+void State::incrementProbability(char action, int index, double value)
+{
+    switch(action){
+        case 'H':
+            probabilityH[index] += value;
+            break;
+        case 'P':
+            probabilityP[index] += value;
+            break;
+        case 'D':
+            probabilityD[index] += value;
+            break;
+        case 'S':
+            probabilityS[index] += value;
+            break;
+    }
 }
 void State::addNextState(State *state, char action, double p)
 {

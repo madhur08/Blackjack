@@ -1,7 +1,7 @@
 #include "States.h"
 #include <cmath>
 #include <iostream>
-#define EPSILON 0.000001
+#define EPSILON 1e-10
 using namespace std;
 States::States(double p, int dealerCard)
 {
@@ -43,22 +43,22 @@ void States::calculateUtility(State &state, State &compareState, int dealer, boo
             if (dealerValue > 21)
             {
                 if (compareState.isBlackjack())
-                    state.addNextState(&states[61 + doubleValue * 3], action, prob * p);
+                    state.incrementProbability(action, doubleValue * 3 + 2, prob * p);
                 else
-                    state.addNextState(&states[60 + doubleValue * 3], action, prob * p);
+                    state.incrementProbability(action, doubleValue * 3 + 1, prob * p);
             }
             else
             {
                 if (!compareState.isBlackjack() && ((dealerCard == 1 && i == 10) || (dealerCard == 10 && i == 1)) && cardNumber == 2)
-                    state.addNextState(&states[59 + doubleValue * 3], action, prob * p);
+                    state.incrementProbability(action, doubleValue * 3, prob * p);
                 else if (compareState.isBlackjack() && ((!(dealerCard == 1 && i == 10) && !(dealerCard == 10 && i == 1)) || cardNumber > 2))
-                    state.addNextState(&states[61 + doubleValue * 3], action, prob * p);
+                    state.incrementProbability(action, doubleValue * 3 + 2, prob * p);
                 else
                 {
                     if (dealerValue > compareState.getHandValue())
-                        state.addNextState(&states[59 + doubleValue * 3], action, prob * p);
+                        state.incrementProbability(action, doubleValue * 3, prob * p);
                     else if (dealerValue < compareState.getHandValue())
-                        state.addNextState(&states[60 + doubleValue * 3], action, prob * p);
+                        state.incrementProbability(action, doubleValue * 3 + 1, prob * p);
                 }
             }
         }
@@ -100,6 +100,8 @@ void States::assignNextStates(char action, State &state)
                     {
                         double prob = i == 10 ? probability : (1 - probability) / 9;
                         prob *= (j == 10 ? probability : (1 - probability) / 9);
+                        for (int a = 0; a < 6; ++a)
+                            state.addNextState(&states[59 + a], 'P', 0);
                         calculateUtility(state, states[48 + i], dealerCard, dealerCard == 1, false, prob, 'P');
                         calculateUtility(state, states[48 + j], dealerCard, dealerCard == 1, false, prob, 'P');
                     }
@@ -139,6 +141,8 @@ void States::assignNextStates(char action, State &state)
                 double prob = i == 10 ? probability : (1 - probability) / 9;
                 if (state.getHandValue() + i <= 21 || (state.hasA() && state.getHandValue() + i <= 31))
                 {
+                    for (int a = 0; a < 6; ++a)
+                        state.addNextState(&states[59 + a], 'D', 0);
                     if ((state.getHandValue() < 11 && i == 1))
                         calculateUtility(state, states[48 + state.getHandValue()], dealerCard, dealerCard == 1, true, prob, 'D');
                     else if (state.hasA() && state.getHandValue() + i > 21)
@@ -154,6 +158,8 @@ void States::assignNextStates(char action, State &state)
         }
         break;
     case 'S':
+        for (int a = 0; a < 6; ++a)
+            state.addNextState(&states[59 + a], 'S', 0);
         calculateUtility(state, state, dealerCard, dealerCard == 1);
         break;
     }

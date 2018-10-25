@@ -32,5 +32,6 @@ public:
   vector<State *> &getNextState(char);
   vector<double> &getProbability(char);
   double getUtility(char action = 'O');
+  void incrementProbability(char, int, double);
 };
 #endif
